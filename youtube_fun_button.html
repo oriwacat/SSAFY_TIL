@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>재밌는 유튜브 버튼</title>
+  <style id="dynamicStyle"></style>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      min-height: 100vh;
+      width: 100vw;
+      background: linear-gradient(135deg, #f9d423, #ff4e50);
+      background-size: cover !important;
+      background-position: center center !important;
+      background-repeat: no-repeat !important;
+      background-attachment: fixed !important;
+      position: fixed;
+      top: 0;
+      left: 0;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    #funBtn {
+      padding: 25px 50px;
+      font-size: 2.2rem;
+      color: #fff;
+      background: linear-gradient(90deg, #ff4e50 40%, #f9d423 100%);
+      border: none;
+      border-radius: 50px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+      animation: bounce 1.2s infinite alternate;
+      font-family: 'Comic Sans MS', 'Arial', cursive;
+      letter-spacing: 2px;
+      position: relative;
+      z-index: 2;
+    }
+    #funBtn:hover {
+      background: linear-gradient(90deg, #f9d423 40%, #ff4e50 100%);
+      transform: scale(1.15) rotate(-8deg);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+      text-shadow: 0 0 10px #fff, 0 0 20px #f9d423;
+    }
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-18px) scale(1.08) rotate(-3deg); }
+    }
+    #videoContainer {
+      margin-top: 40px;
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      justify-content: center;
+      animation: fadeIn 1s;
+    }
+    iframe {
+      width: 100%;
+      height: 70vw;
+      max-height: 700px;
+      max-width: 400px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    @media (max-width: 500px) {
+      #funBtn {
+        font-size: 1.2rem;
+        padding: 12px 20px;
+      }
+      iframe {
+        height: 60vw;
+      }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    #lyricsContainer {
+      position: fixed;
+      top: 50%;
+      right: -100vw;
+      width: 100vw;
+      pointer-events: none;
+      z-index: 1;
+    }
+    #lyricsText {
+      white-space: nowrap;
+      font-size: 2rem;
+      color: #fff;
+      text-shadow: 2px 2px 8px #000;
+      font-family: 'Comic Sans MS', 'Arial', cursive;
+    }
+  </style>
+</head>
+<body>
+  <button id="funBtn">지금 눌러보세요!</button>
+  <div id="videoContainer"></div>
+  <div id="lyricsContainer" style="display:none;">
+    <div id="lyricsText">
+      이건 첫 번째 레슨 좋은 건 너만 알기 이제 두 번째 레슨 슬픔도 너만 갖기 좋은걸 나눴다가 (I hate this) 이게 대체 왜 (왜) 아파도 그저 (I hate this) 더 외롭게 돼
+    </div>
+  </div>
+  <div id="sideImagesRight" style="position: absolute; top: 50%; right: 0; width: 0; height: 80vh; z-index: 3; pointer-events: none; display:flex; flex-direction:column; justify-content:space-between;"></div>
+
+  <script>
+    const videoId = "bk-pMz01hjI";
+    const videoContainer = document.getElementById('videoContainer');
+    const funBtn = document.getElementById('funBtn');
+    const lyricsContainer = document.getElementById('lyricsContainer');
+    let clickCount = 0;
+    // 가사 위치를 버튼 위로 조정
+    function positionLyricsAboveButton() {
+      const btnRect = funBtn.getBoundingClientRect();
+      lyricsContainer.style.top = (btnRect.top - 40) + 'px';
+      lyricsContainer.style.left = '0';
+      lyricsContainer.style.width = '100vw';
+      lyricsContainer.style.height = 'auto';
+    }
+    window.addEventListener('resize', positionLyricsAboveButton);
+    positionLyricsAboveButton();
+    function setBackgroundAndButton(clickNum) {
+      const styleTag = document.getElementById('dynamicStyle');
+      let bg = '', btn = '';
+      if (clickNum === 1) {
+        bg = `body { background: url('https://i.namu.wiki/i/Owc8TYJepvO0h16fXtRmukILR2qthH7B4woiXsCvOvDwpXoViQ15jMBwXcWVEHolwz1zcE4gG965zqKam8aCzAs_hv6HWru-6LbxKeWUxGMfNAp7MA2YbpaEWcpbx08MjdnKf3BluxzZyyLwqx2aiQ.webp') center center/cover no-repeat fixed; }`;
+        btn = `#funBtn { background: linear-gradient(90deg, #1e3c72 40%, #2a5298 100%); color: #fff; border-radius: 10px; box-shadow: 0 4px 20px #1e3c72; font-size:2.5rem; }`;
+      } else if (clickNum === 2) {
+        bg = `body { background: url('https://scontent-ssn1-1.cdninstagram.com/v/t51.29350-15/457848421_8335769603141496_6555817356471458914_n.jpg?stp=dst-jpg_e15_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTA4MHg2MDcuc2RyLmYyOTM1MC5kZWZhdWx0X2ltYWdlIn0&_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=100&_nc_oc=Q6cZ2QGDOTzTcn0wp2chWzXOeCvRxRIiJN3WpZlbEvJPRtdovWFd-ukMx3WxZk5L1zpjd8U&_nc_ohc=egN9O2pcJYYQ7kNvwFBh_LI&_nc_gid=RxO95y1PpWjpIdc_RVCeHA&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzQ0ODYzNzM1NzA3ODYwMTE1OA%3D%3D.3-ccb7-5&oh=00_AfSiVm5CHux_aovhq7AB6wLvJp-kN9V7Fn2LPkXlsoV9FQ&oe=687FD328&_nc_sid=10d13b') center center/cover no-repeat fixed; }`;
+        btn = `#funBtn { background: linear-gradient(90deg, #ffb347 40%, #ffcc33 100%); color: #222; border-radius: 50px; box-shadow: 0 4px 20px #ffb347; font-size:2.5rem; }`;
+      } else if (clickNum === 3) {
+        bg = `body { background: url('https://resources.chimhaha.net/article/1670675975554-6whjy22l8a9.gif') center center/cover no-repeat fixed; }`;
+        btn = `#funBtn { background: linear-gradient(90deg, #ff4e50 40%, #f9d423 100%); color: #fff; border-radius: 30px; box-shadow: 0 4px 20px #ff4e50; font-size:2.5rem; }`;
+      }
+      styleTag.innerHTML = bg + btn;
+    }
+    function setSideImages(clickNum) {
+      const rightContainer = document.getElementById('sideImagesRight');
+      rightContainer.innerHTML = '';
+      let imgSrc = 'https://i.namu.wiki/i/Owc8TYJepvO0h16fXtRmukILR2qthH7B4woiXsCvOvDwpXoViQ15jMBwXcWVEHolwz1zcE4gG965zqKam8aCzAs_hv6HWru-6LbxKeWUxGMfNAp7MA2YbpaEWcpbx08MjdnKf3BluxzZyyLwqx2aiQ.webp';
+      if (clickNum === 2) {
+        imgSrc = 'https://i.imgur.com/1Q9Z1ZQ.jpg';
+      }
+      let count = clickNum + 1;
+      let size = 300 + Math.min(clickNum, 3) * 100;
+      for (let i = 0; i < count; i++) {
+        const imgRight = document.createElement('img');
+        imgRight.src = imgSrc;
+        imgRight.style.height = size + 'px';
+        imgRight.style.width = 'auto';
+        imgRight.style.borderRadius = '20px';
+        imgRight.style.boxShadow = '0 8px 32px rgba(0,0,0,0.25)';
+        imgRight.style.margin = '20px 0';
+        imgRight.style.zIndex = '3';
+        rightContainer.appendChild(imgRight);
+      }
+    }
+    funBtn.onclick = function() {
+      clickCount++;
+      setBackgroundAndButton(clickCount);
+      setSideImages(clickCount);
+      // 가사 애니메이션 초기화
+      lyricsContainer.style.transition = '';
+      lyricsContainer.style.left = '100vw';
+      lyricsContainer.style.display = 'none';
+      if (clickCount === 1) {
+        funBtn.innerHTML = '이건 첫 번째 레슨';
+        funBtn.disabled = true;
+        videoContainer.innerHTML = '';
+        setTimeout(() => {
+          videoContainer.innerHTML =
+            `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&playsinline=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+          funBtn.disabled = false;
+          // 가사 애니메이션 시작
+          const lyricsText = document.getElementById('lyricsText');
+          lyricsText.innerHTML =
+            '이건 첫 번째 레슨 좋은 건 너만 알기 이제 두 번째 레슨 슬픔도 너만 갖기 좋은걸 나눴다가 (I hate this) 이게 대체 왜 (왜) 아파도 그저 (I hate this) 더 외롭게 돼';
+          lyricsContainer.style.display = 'block';
+          setTimeout(() => {
+            lyricsContainer.style.transition = 'left 10s linear';
+            lyricsContainer.style.left = '-100vw';
+          }, 50);
+        }, 200);
+      } else if (clickCount === 2) {
+        funBtn.innerHTML = '증류쉐이';
+        funBtn.disabled = true;
+        videoContainer.innerHTML = '';
+        setTimeout(() => {
+          videoContainer.innerHTML =
+            `<iframe src="https://www.youtube.com/embed/8nuR8A-6bzM?autoplay=1&mute=0&playsinline=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+          funBtn.disabled = false;
+          // 가사 애니메이션 변경 및 출력
+          const lyricsText = document.getElementById('lyricsText');
+          lyricsText.innerHTML =
+            'super idol 的笑容都没你的甜 八月正午的阳光都没你耀眼 热爱105°C的你 滴滴清纯的蒸馏水';
+          lyricsContainer.style.display = 'block';
+          setTimeout(() => {
+            lyricsContainer.style.transition = 'left 10s linear';
+            lyricsContainer.style.left = '-100vw';
+          }, 50);
+        }, 200);
+      } else if (clickCount === 3) {
+        funBtn.innerHTML = '나니가스키~~';
+        funBtn.disabled = true;
+        videoContainer.innerHTML = '';
+        setTimeout(() => {
+          videoContainer.innerHTML =
+            `<iframe src="https://www.youtube.com/embed/7erUQeweuig?autoplay=1&mute=0&playsinline=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+          funBtn.disabled = false;
+          // 가사 애니메이션 변경 및 출력
+          const lyricsText = document.getElementById('lyricsText');
+          lyricsText.innerHTML =
+            'ルビィちゃん！[「はーい！」] 何なにが好すき？ チョコミント　よりも　あ･な･た･♡ 歩あゆ夢むちゃん！[「はーい！」] 何なにが好すき？ ストロベリーフレイバー　よりも　あ･な･た･♡ 四し季きちゃん！[「はーい！」] 何なにが好すき？ クッキー＆クリーム　よりも　あ･な･た･♡ みんな[「はーい！」] 何なにが好すき？ モチロン大だい好すき　AiScReam';
+          lyricsContainer.style.display = 'block';
+          setTimeout(() => {
+            lyricsContainer.style.transition = 'left 10s linear';
+            lyricsContainer.style.left = '-100vw';
+            // 가사 애니메이션 끝나면 사라지게
+            setTimeout(() => {
+              lyricsContainer.style.display = 'none';
+            }, 10000);
+          }, 50);
+        }, 200);
+      } else {
+        funBtn.disabled = false;
+      }
+    };
+  </script>
+</body>
+</html>
