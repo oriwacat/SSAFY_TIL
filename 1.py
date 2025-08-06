@@ -20,6 +20,7 @@ for tast_case in range(T):
 
         if 0 <= ni < N and 0 <= nj < M:
           sum += balloons[ni][nj]
+          
       if sum > result:
         result = sum
 
