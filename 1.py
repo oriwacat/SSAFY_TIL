@@ -1,31 +1,27 @@
-# import json  
-# from pathlib import Path  
+T = int(input())
 
 
-# file_path = Path('./data/books_20.json')  
+for tast_case in range(T):
+  N, M = map(int, input().split())
+  balloons = []
+  result = 0
+  
+  for i in range(N):
+    balloons.append(list(map(int, input().split())))
+  dx = [1, -1, 0, 0]
+  dy = [0, 0, 1, -1]
 
+  for i in range(N):
+    for j in range(M):
+      sum = 0
+      for k in range(4):
+        ni = i + dx[k]
+        nj = j + dy[k]
 
-# if file_path.exists():  
-    
-#     with file_path.open('r', encoding='utf-8') as file:
-#         data = json.load(file)  
+        if 0 <= ni < N and 0 <= nj < M:
+          sum += balloons[ni][nj]
+      if sum > result:
+        result = sum
 
-   
-#     book_prices = []  
-#     for item in data['item']:  
-#         book_prices.append(item['priceSales'])  
+  print(f'#{tast_case} {result}')
 
-    
-#     average_price = (sum(book_prices) / len(book_prices))  
-
-    
-#     print(f"도서 평균 가격: {average_price:.2f}원")
-
-# else:
-    
-#     print(f"파일이 존재하지 않습니다: {file_path}")  
-
-number = [1, 2, 3, 4, 5]
-
-squared2 = list(map(lambda x : x**2, number))
-print(squared2)
