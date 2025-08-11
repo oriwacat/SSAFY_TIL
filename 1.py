@@ -1,47 +1,36 @@
-# high = max([i for i,v in enumerate(numbers) if v == max_v])
+import sys
+sys.stdin = open("sample_input.txt", "r")
 
-origin_matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-"""
-전치(행과 열을 바꿈)
-언패킹으로 각 리스트를 추출하고, zip으로 각 열끼리 묶어준다.
-"""
-reverse_matrix = list(map(list, zip(*origin_matrix)))
-"""
-90도 시계방향 회전 (행을 뒤집고, 전치)
-(i, j) => (j, n-1-i)
-2. (n-1-i, j) => 행을 뒤집고
-3. (j, n-1-i) => 전치 
-"""
-rotate_90_clockwise_matrix = list(zip(*origin_matrix[::-1]))
-"""
-90도 반시계방향 회전 (전치, 행을 뒤집기)
-(i, j) => (n-1-j, i)
-2. (j, i) => 전치
-3. (n-1-j, i) => 행 뒤집기 
-"""
-rotate_90_counter_clockwise_matrix = list(zip(*origin_matrix))[::-1]
-"""
-(n-1-i, m-1-j)
-각 열에 대해서 뒤집고, 최종적으로 행에 대해서 뒤집기 
-"""
-rotate_180_matrix = [list(row)[::-1] for row in origin_matrix[::-1]]
+def check_brackets(line):
+    """주어진 문자열의 괄호 짝이 맞는지 검사하는 함수"""
+    stack = []
+    # 닫는 괄호를 key, 여는 괄호를 value로 하는 딕셔너리
+    bracket_map = {')': '(', '}': '{'}
 
-print("오리지널")
-for i in origin_matrix:
-    print(i)
+    for char in line:
+        # 여는 괄호는 스택에 추가
+        if char in '({':
+            stack.append(char)
+        # 닫는 괄호일 경우
+        elif char in bracket_map:
+            # 스택이 비어있으면 짝이 안 맞음 (닫는 괄호가 먼저 나옴)
+            if not stack:
+                return 0
+            # 스택의 마지막 괄호를 꺼냄
+            last_open_bracket = stack.pop()
+            # 꺼낸 괄호가 짝이 맞지 않으면 실패
+            if last_open_bracket != bracket_map[char]:
+                return 0
 
-print("전치(행과 열을 바꿈)")
-for i in reverse_matrix:
-    print(i)
+    # 문자열 순회가 끝난 후 스택에 여는 괄호가 남아있으면 실패
+    if stack:
+        return 0
+    
+    # 모든 조건을 통과하면 성공
+    return 1
 
-print("90도 시계방향 회전")
-for i in rotate_90_clockwise_matrix:
-    print(i)
-
-print("90도 반시계방향 회전")
-for i in rotate_90_counter_clockwise_matrix:
-    print(i)
-
-print("180도 회전")
-for i in rotate_180_matrix:
-    print(i)
+T = int(input())
+for test_case in range(1, T + 1):
+    code_line = input()
+    result = check_brackets(code_line)
+    print(f"#{test_case} {result}")
