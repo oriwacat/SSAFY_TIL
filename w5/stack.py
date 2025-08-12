@@ -1,5 +1,7 @@
 import sys
-sys.stdin = open("w5/sample_input.txt", "r")
+
+sys.stdin = open("sample_input.txt", "r")
+
 
 def check_brackets(line):
     """주어진 문자열의 괄호 짝이 맞는지 검사하는 함수"""
@@ -25,9 +27,10 @@ def check_brackets(line):
     # 문자열 순회가 끝난 후 스택에 여는 괄호가 남아있으면 실패
     if stack:
         return 0
-    
+
     # 모든 조건을 통과하면 성공
     return 1
+
 
 T = int(input())
 for test_case in range(1, T + 1):
