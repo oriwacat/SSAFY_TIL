@@ -26,4 +26,6 @@ for t in range(1, T + 1):
       cnt = 0
     result = max(result, cnt)
 
+  if result < 2:
+    result = 0
   print(f'#{t} {result}')
