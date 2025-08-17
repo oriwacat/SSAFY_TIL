@@ -13,7 +13,6 @@ for tc in range(1, T + 1):
     goal = min(a)
     result = []
     spoint = []
-    xx = []
     x = (1, -1, 0, 0)
     y = (0, 0, 1, -1)
     
@@ -24,20 +23,23 @@ for tc in range(1, T + 1):
 
     for i, j in spoint:
         ii, jj = i, j
+        cnt = 1
+        
         while True:
-            n_pos = 1000
-            box = []
-            cnt = 1
+            n_ii, n_jj = 0, 0
+            n_pos = map_list[ii][jj]
+
             for k in range(4):
                 dx = ii + x[k]
                 dy = jj + y[k]
-                if 0 <= dx < N and 0 <= dy < N:
-                    box.append(map_list[dx][dy])
-                n_pos = min(box)  # 15
-                cnt += 1
-            
-            if n_pos == goal:
+                if 0 <= dx < N and 0 <= dy < N and map_list[dx][dy] < n_pos:
+                    n_pos = map_list[dx][dy]
+                    n_ii, n_jj = dx, dy
+                
+            if n_ii == 0:
                 break
+            ii, jj = n_ii, n_jj
+            cnt += 1
 
         result.append(cnt)
-    print(f'#{tc} {max(xx)}')
+    print(f'#{tc} {max(result)}')
