@@ -1,0 +1,31 @@
+import sys
+sys.stdin = open("in1.txt")
+
+T = int(input())
+for tc in range(1, T + 1):
+    N, M = map(int, input().split())
+    matrix = [list(map(int, input().split())) for _ in range(N)]
+    x = (1, -1, 0, 0)
+    y = (0, 0, 1, -1)
+    d = (-1, -1, 1, 1)
+    s = (-1, 1, 1, -1)
+    result = []
+    for i in range(N):
+        for j in range(N):
+            result1 = matrix[i][j]
+            result2 = matrix[i][j]
+            for m in range(1, M):
+                for k in range(4):
+                    dx = i + (x[k] * m)
+                    dy = j + (y[k] * m)
+                    dd = i + (d[k] * m)
+                    ds = j + (s[k] * m)
+                    if 0 <= dx < N and 0 <= dy < N:
+                        result1 += matrix[dx][dy]
+                    if 0 <= dd < N and 0 <= ds < N: 
+                        result2 += matrix[dd][ds]
+            result.append(result1)
+            result.append(result2)
+    print(f'#{tc} {max(result)}')
+                    
+                    
