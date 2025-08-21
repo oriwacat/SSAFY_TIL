@@ -12,3 +12,6 @@ for t in range(1, T+1):
         result.append(list(zip(*matrix[::-1])))
 
     print(''.join(map(str,result)))
+
+
+
