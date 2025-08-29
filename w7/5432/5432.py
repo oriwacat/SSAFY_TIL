@@ -7,8 +7,8 @@ for t in range(1, T+1):
     result = 0
     pip = []
     box = list(input())
-    for i in box:
-        if i == ')':
+    for i in range(len(box)):
+        if box[] == ')':
             pip.pop()
             result += len(pip)
         pip.append(i)
