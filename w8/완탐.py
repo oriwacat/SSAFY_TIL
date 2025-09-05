@@ -15,5 +15,5 @@ def comb(arr, n):
 
     return result
 
-for i in range(5):
+for i in range(1,5):
     print(comb([1, 2, 3, 4], i))
