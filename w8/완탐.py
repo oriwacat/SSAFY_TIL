@@ -17,3 +17,4 @@ def comb(arr, n):
 
 for i in range(1,5):
     print(comb([1, 2, 3, 4], i))
+    1
