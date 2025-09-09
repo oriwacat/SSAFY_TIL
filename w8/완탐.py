@@ -40,7 +40,7 @@ def comb(arr, n):
 i = 2
 print(comb([1, 2, 3, 4], i))
 
->>>>>>> 52f96cab2aa49cb17d983b6aeea0ed0556ba0d27
+
 
 
 # def subsets(nums, index=0, current=None):
