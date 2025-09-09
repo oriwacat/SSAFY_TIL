@@ -15,29 +15,29 @@
 #
 #     return result
 #
-# for i in range(1,5):
+# for i in range(n+1):
 #     print(comb([1, 2, 3, 4], i))
-#     1
+#
 
 
-def subsets(nums, index=0, current=None):
-    if current is None:
-        current = []
-
-    # 종료 조건: 끝까지 탐색했으면 출력
-    if index == len(nums):
-        print(current)
-        return
-
-    # 1. 현재 원소를 포함하지 않는 경우
-    subsets(nums, index + 1, current)
-
-    # 2. 현재 원소를 포함하는 경우
-    subsets(nums, index + 1, current + [nums[index]])
-
-
-# 실행
-subsets([1, 2, 3])
+# def subsets(nums, index=0, current=None):
+#     if current is None:
+#         current = []
+#
+#     # 종료 조건: 끝까지 탐색했으면 출력
+#     if index == len(nums):
+#         print(current)
+#         return
+#
+#     # 1. 현재 원소를 포함하지 않는 경우
+#     subsets(nums, index + 1, current)
+#
+#     # 2. 현재 원소를 포함하는 경우
+#     subsets(nums, index + 1, current + [nums[index]])
+#
+#
+# # 실행
+# subsets([1, 2, 3])
 
 # -----------------------------------------------------------
 
@@ -92,3 +92,22 @@ subsets([1, 2, 3])
 #     return result
 # print(h_comb([1, 2, 3, 4], 2))
 #
+
+
+def comb(arr, n):
+    result = []
+    if n == 1:
+        return [[i] for i in arr]
+
+    for i in range(len(arr)):
+        elem = arr[i]
+
+        for rest in comb(arr[i +1:],n-1):
+
+            result.append([elem]+rest)
+
+    return result
+
+for i in range(5):
+    print(comb([1,2,3,4],i))
+
