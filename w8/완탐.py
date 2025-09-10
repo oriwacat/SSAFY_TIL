@@ -1,3 +1,25 @@
+<<<<<<< HEAD
+# def comb(arr, n):
+#     result = []  # 조합을 저장할 리스트
+#
+#     if n == 1:
+#         return [[i] for i in arr]
+#
+#     for i in range(len(arr)):
+#         elem = arr[i]
+#
+#         for rest in comb(arr[i + 1:], n - 1):  # 조합
+#             # for rest in comb(arr[:i] + arr[i+1:], n - 1):  # 순열
+#             # for rest in comb(arr, n - 1):  # 중복순열
+#             # for rest in comb(arr[i:], n - 1):  # 중복조합
+#             result.append([elem] + rest)
+#
+#     return result
+#
+# for i in range(n+1):
+#     print(comb([1, 2, 3, 4], i))
+#
+=======
 def comb(arr, n):
     result = []  # 조합을 저장할 리스트
 
@@ -17,9 +39,16 @@ def comb(arr, n):
 
 i = 2
 print(comb([1, 2, 3, 4], i))
+<<<<<<< HEAD
 #
 #
 #
+=======
+
+
+
+
+>>>>>>> afb72038a1f88452236f1e4c4fffe72c01c2978c
 # def subsets(nums, index=0, current=None):
 #     if current is None:
 #         current = []
@@ -93,3 +122,24 @@ print(comb([1, 2, 3, 4], i))
 # print(h_comb([1, 2, 3, 4], 2))
 #
 
+<<<<<<< HEAD
+=======
+
+def comb(arr, n):
+    result = []
+    if n == 1:
+        return [[i] for i in arr]
+
+    for i in range(len(arr)):
+        elem = arr[i]
+
+        for rest in comb(arr[i +1:],n-1):
+
+            result.append([elem]+rest)
+
+    return result
+
+for i in range(5):
+    print(comb([1,2,3,4],i))
+
+>>>>>>> afb72038a1f88452236f1e4c4fffe72c01c2978c
