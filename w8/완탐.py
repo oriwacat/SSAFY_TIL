@@ -17,27 +17,27 @@ def comb(arr, n):
 
 i = 2
 print(comb([1, 2, 3, 4], i))
-
-
-
-def subsets(nums, index=0, current=None):
-    if current is None:
-        current = []
-
-    # 종료 조건: 끝까지 탐색했으면 출력
-    if index == len(nums):
-        print(current)
-        return
-
-    # 1. 현재 원소를 포함하지 않는 경우
-    subsets(nums, index + 1, current)
-
-    # 2. 현재 원소를 포함하는 경우
-    subsets(nums, index + 1, current + [nums[index]])
-
-
-# 실행
-subsets([1, 2, 3])
+#
+#
+#
+# def subsets(nums, index=0, current=None):
+#     if current is None:
+#         current = []
+#
+#     # 종료 조건: 끝까지 탐색했으면 출력
+#     if index == len(nums):
+#         print(current)
+#         return
+#
+#     # 1. 현재 원소를 포함하지 않는 경우
+#     subsets(nums, index + 1, current)
+#
+#     # 2. 현재 원소를 포함하는 경우
+#     subsets(nums, index + 1, current + [nums[index]])
+#
+#
+# # 실행
+# subsets([1, 2, 3])
 
 # -----------------------------------------------------------
 
@@ -92,3 +92,4 @@ subsets([1, 2, 3])
 #     return result
 # print(h_comb([1, 2, 3, 4], 2))
 #
+
