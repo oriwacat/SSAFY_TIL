@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<!-- 로그인한 사용자들만 가능 ( 게시글 생성, 로그아웃, 회원탈퇴) -->
+{% if request.user.is_authenticated %}
+<h3>Hello, {{ user.username }}</h3>
+<a href="{% url 'articles:create' %}">NEW</a>
+<form action="{% url "accounts:logout" %}" mehtod="POST">
+  {% csrf_token %}
+  <input type="submit" value="로그아웃">
+</form>
+<form action="{% url "accounts:delete" %}" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="회원탈퇴">
+</form>
+<!-- 로그인하지 않은 유저가 가능 ( 로그인, 회원가입 )-->
+{% else %}
+<a href="{% url 'accounts:login' %}">Login</a>
+<a href="{% url "accounts:signup" %}">회원가입</a>
+{% endif %}
+
+<!-- articles/index.html -->
+<h1>Articles</h1>
+
+
+<hr>
+{% for article in articles %}
+  <p>글 번호: {{ article.pk }}</p>
+  <a href="{% url 'articles:detail' article.pk %}">
+    <p>글 제목: {{ article.title }}</p>
+  </a>
+  <p>글 내용: {{ article.content }}</p>
+  <hr>
+{% endfor %}
+</body>
+</html>
