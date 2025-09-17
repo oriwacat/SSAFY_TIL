@@ -1,24 +1,29 @@
-T = int(input())
-for t in range(1, T+1):
-    N, B = map(int, input().split())
-    arr = list(map(int, input().split()))
+n, m, q = map(int, input().split())
+a = [list(map(int, input().split())) for _ in range(n)]
+winds = [(int(r), d) for r, d in [input().split() for _ in range(q)]]
 
-    min_height = float('INF')
 
-    def dfs(idx, h_sum):
-        global min_height
+def go(a, side):
+    if side == 'L':
+        temp = a[m-1]
 
-        if h_sum >= min_height:
-            return
+        for i in range(m - 1, 0, -1):
+            a[i] = a[i -1]
+        a[0] = temp
+    else:
+        temp = a[0]
+        for i in range(m):
+            a[i] = a[i+1]
+        a[m] = temp
 
-        if idx == N:
-            if h_sum >= B:
-                min_height = min(min_height, h_sum)
-            return
+for _ in range(q):
+    cnt = 1
+    up = True
+    down = True
+    go(a[winds[0][0]], winds[0][1])
+    while up == True or down == True:
+        if up:
+            for i in range(m):
+                if a[winds[0][0]][i] == a[winds[0][0]+cnt][i]:
+                    go(a[winds[0][0]], winds[0][1])
 
-        dfs(idx+1, h_sum + arr[idx])
-        dfs(idx+1, h_sum)
-
-    dfs()
-
-    print()
