@@ -1,29 +1,16 @@
-n, m, q = map(int, input().split())
-a = [list(map(int, input().split())) for _ in range(n)]
-winds = [(int(r), d) for r, d in [input().split() for _ in range(q)]]
+import pprint
+n = int(input())
+grid = [list(map(int, input().split())) for _ in range(n)]
+r, c = map(int, input().split())
 
+dxy = [(1,0),(0,1),(-1,0),(0,-1)]
+for i in range(grid[r][c]):
+    for t in range(4):
+        x,y = dxy[t]
+        dx = r + x + (i*1)
+        dy = r + y + (i*1)
+        if 0 <= dx < n and 0 <= dy < n:
+            grid[dx][dy] = 0
 
-def go(a, side):
-    if side == 'L':
-        temp = a[m-1]
-
-        for i in range(m - 1, 0, -1):
-            a[i] = a[i -1]
-        a[0] = temp
-    else:
-        temp = a[0]
-        for i in range(m):
-            a[i] = a[i+1]
-        a[m] = temp
-
-for _ in range(q):
-    cnt = 1
-    up = True
-    down = True
-    go(a[winds[0][0]], winds[0][1])
-    while up == True or down == True:
-        if up:
-            for i in range(m):
-                if a[winds[0][0]][i] == a[winds[0][0]+cnt][i]:
-                    go(a[winds[0][0]], winds[0][1])
-
+grid[r][c] = 0
+pprint.pprint(grid)
