@@ -14,3 +14,4 @@ for i in range(grid[r][c]):
 
 grid[r][c] = 0
 pprint.pprint(grid)
+adadwdaadaw
