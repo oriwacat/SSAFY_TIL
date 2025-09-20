@@ -1,17 +1,27 @@
-import pprint
-n = int(input())
-grid = [list(map(int, input().split())) for _ in range(n)]
-r, c = map(int, input().split())
+n, m = map(int, input().split())
+numbers = [int(input()) for _ in range(n)]
+trigger = True
+while True:
 
-dxy = [(1,0),(0,1),(-1,0),(0,-1)]
-for i in range(grid[r][c]):
-    for t in range(4):
-        x,y = dxy[t]
-        dx = r + x + (i*1)
-        dy = r + y + (i*1)
-        if 0 <= dx < n and 0 <= dy < n:
-            grid[dx][dy] = 0
+    for i in range(len(numbers)):
+        trigger = True
+        for j in range(1,m):
+            if i+j < n and numbers[i] != numbers[i+j]:
+                trigger = False
+        if trigger:
+            for _ in range(m):
+                numbers.pop(i)
 
-grid[r][c] = 0
-pprint.pprint(grid)
-adadwdaadawadwawda
+            break
+
+    if len(numbers) == 0:
+        break
+    if not trigger:
+        break
+
+
+if len(numbers) == 0:
+    print(0)
+else:
+    for i in numbers:
+        print(i)

@@ -133,3 +133,39 @@ while True:
 print(len(numbers))
 for i in range(len(numbers)):
     print(numbers[i])
+
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+n = int(input())
+grid = [list(map(int, input().split())) for _ in range(n)]
+r, c = map(int, input().split())
+r -= 1
+c -= 1
+dxy = [(1,0),(0,1),(-1,0),(0,-1)]
+for i in range(1,grid[r][c]):
+    for t in range(4):
+        x,y = dxy[t]
+        dx = r + (x * i)
+        dy = c + (y * i)
+        if 0 <= dx < n and 0 <= dy < n:
+            grid[dx][dy] = 0
+
+grid[r][c] = 0
+
+grid = [list(row) for row in zip(*grid[::-1])]
+
+for g_list in grid:
+    for i in range(n-1,0,-1):
+        if g_list[i] == 0:
+            g_list.pop(i)
+            g_list.append(0)
+    if g_list[0] == 0:
+        g_list.pop(0)
+        g_list.append(0)
+
+grid = list(zip(*grid))[::-1]
+for a in grid:
+    for b in a:
+        print(b,end=' ')
+    print()
