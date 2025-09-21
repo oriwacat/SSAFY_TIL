@@ -48,6 +48,33 @@ while True:
     else:
         break
 
+
+# 내코드 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+n, r, c = map(int, input().split())
+r -= 1
+c -= 1
+a = [list(map(int, input().split())) for _ in range(n)]
+dxy = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+trigger = False
+result = []
+while True:
+    trigger = True
+    for i in range(4):
+        dx, dy = dxy[i]
+        x = r + dx
+        y = c + dy
+        if 0 <= x < n and 0 <= y < n and a[x][y] > a[r][c]:
+            result.append(a[r][c])
+            r = x
+            c = y
+            trigger = False
+            break
+
+    if trigger:
+        result.append(a[r][c])
+        break
+
+print(*result)
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
 
