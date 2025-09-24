@@ -61,3 +61,54 @@ def move(idx):
 
 move(0)
 print(ans)
+
+-------------------------------------------------
+
+
+n = int(input())
+num = [list(map(int, input().split())) for _ in range(n)]
+move_dir = [list(map(int, input().split())) for _ in range(n)]
+r, c = map(int, input().split())
+
+ans = 0
+
+dys = [0, -1, -1, 0, 1, 1, 1, 0, -1]
+dxs = [0, 0, 1, 1, 1, 0, -1, -1, -1]
+
+def in_range(y, x):
+    return 0 <= y < n and 0 <= x < n
+
+def get_movable_positions(y, x):
+    curr_dir = move_dir[y][x]
+    positions = []
+
+    ny, nx = y, x
+    while True:
+        ny += dys[curr_dir]
+        nx += dxs[curr_dir]
+
+        if not in_range(ny, nx):
+            break
+
+        if num[ny][nx] > num[y][x]:
+            positions.append((ny, nx))
+
+    return positions
+
+def move(cnt, y, x):
+    global ans
+
+    positions = get_movable_positions(y, x)
+
+    # 종료조건? => 이동할 수 없을 때 (positions == 0)
+    if len(positions) == 0:
+        ans = max(ans, cnt)
+        return
+
+    # positions를 돌면서 이동시킨다.
+    for ny, nx in positions:
+        move(cnt + 1, ny, nx)
+
+
+move(0, r - 1, c - 1)
+print(ans)

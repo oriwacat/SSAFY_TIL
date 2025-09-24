@@ -16,6 +16,27 @@ def pick(cnt):
 # 하나의 숫자를 고른다. => n번의 재귀호출이 일어나야 한다.
 pick(0)
 
+------------------------------------------
+def pum(arr , n):
+    result = []
+    if n == 1:
+        return [[i] for i in arr]
+
+    for i in range(len(arr)):
+        elem = arr[i]
+
+        for rest in pum(arr, n-1):
+            result.append([elem] + rest)
+    return result
+
+k,n = map(int,input().split())
+arr_list = list(range(1,k+1))
+
+
+result = pum(arr_list,n)
+
+for q in result:
+    print(*q)
 ---------------------------------------------
 
 n = int(input())
