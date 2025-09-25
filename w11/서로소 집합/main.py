@@ -33,8 +33,6 @@ for t in range(1, T+1):
         if not sw:
             union(x, y)
         elif sw:
-            # for v in range(1, n + 1):
-            #     find_set(v)
             if p[x] == p[y]:
                 result.append(1)
             else:
