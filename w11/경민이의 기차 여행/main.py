@@ -1,7 +1,9 @@
-import heapq, math
+import sys, heapq, math
+from collections import defaultdict
+sys.stdin = open('sample_input.txt')
 
-def dijkstra(graph, start):
-    distances = {v: math.inf for v in graph}
+def dijkstra(graph, start, N):
+    distances = {v: math.inf for v in range(N)}
     distances[start] = 0
     min_heap = []
     heapq.heappush(min_heap, [0, start])
@@ -19,14 +21,17 @@ def dijkstra(graph, start):
 
     return distances
 
-graph = {
-    'a': {'b': 3, 'c': 5},
-    'b': {'c': 2},
-    'c': {'b': 1, 'd': 4, 'e': 6},
-    'd': {'e': 2, 'f': 3},
-    'e': {'f': 6},
-    'f': {}
-}
-start_v = 'a'
-res = dijkstra(graph, start_v)
-print(res)
+T = int(input())
+
+for t in range(1, T+1):
+    N , E = map(int,input().split())
+    graph = defaultdict(dict)
+    for _ in range(E):
+        a, b, w = map(int,input().split())
+        graph[a][b] = w
+    res = dijkstra(graph,0, N)
+
+    if res[N - 1] == math.inf:
+        print(f'#{t} impossible')
+    else:
+        print(f'#{t} {res[N - 1]}')
