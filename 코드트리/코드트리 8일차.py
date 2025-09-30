@@ -62,6 +62,34 @@ def move(idx):
 move(0)
 print(ans)
 
+
+--------------------------------------------
+
+n, m, k = map(int, input().split())
+nums = list(map(int, input().split()))
+
+positions = [1] * (k+1)
+ans = 0
+
+def aaa(idx):
+    global ans
+    cnt = 0
+    if idx == n:
+        for i in range(1, k + 1):
+            if positions[i] >= m:
+                cnt += 1
+        ans = max(ans, cnt)
+        return
+
+    for i in range(1, k+1):
+        if k > 1 and positions[i] >= m: continue
+        positions[i] += nums[idx]
+        aaa(idx+1)
+        positions[i] -= nums[idx]
+
+aaa(0)
+print(ans)
+
 -------------------------------------------------
 
 
