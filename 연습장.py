@@ -1,34 +1,33 @@
-from collections import deque
-
-n, m = map(int, input().split())
-a = [list(map(int, input().split())) for _ in range(n)]
-visited = [[False] * m for _ in range(n)]
-queue = deque()
-dxy = [(1,0),(0,1),(-1,0),(0,-1)]
-
-def bfs():
-
-    queue.append((0, 0))
-    visited[0][0] = True
-    while queue:
-        x, y = queue.popleft()
-
-        for dx, dy in dxy:
-            nx, ny = x+dx, y+dy
-            if (x, y) == (n-1, m-1):
-                return
-
-            if 0 > nx or n <= nx or 0 > ny or m <= ny: continue
-            if visited[nx][ny]: continue
-            if a[nx][ny] == 0: continue
-
-            visited[nx][ny] = True
-            queue.append((nx,ny))
+n, k = map(int, input().split())
+grid = [list(map(int, input().split())) for _ in range(n)]
+r, c = map(int, input().split())
+r -= 1
+c -= 1
+cnt = 0
+dxy = [(1,0),(-1,0),(0,1),(0,-1)]
 
 
-bfs()
 
-if visited[n - 1][m - 1]:
-    print(1)
-else:
-    print(0)
+
+
+
+while True:
+    num = 0
+    lst = []
+    if cnt == k:
+        break
+    for dx, dy in dxy:
+
+        nx, ny = r + dx, c + dy
+        if nx < 0 or nx >= n or ny < 0 or ny >= n: continue
+        if grid[nx][ny] > num:
+            num = grid[nx][ny]
+
+    for i in range(n):
+        for j in range(n):
+            if grid[i][j] == num:
+                lst.append((i, j))
+
+
+
+    cnt += 1
