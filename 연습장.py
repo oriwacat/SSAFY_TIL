@@ -4,30 +4,20 @@ r, c = map(int, input().split())
 r -= 1
 c -= 1
 cnt = 0
-dxy = [(1,0),(-1,0),(0,1),(0,-1)]
+dxy = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 
+while cnt < k:
+    max_val = -1
+    next_pos = (r, c)
 
-
-
-
-
-while True:
-    num = 0
-    lst = []
-    if cnt == k:
-        break
     for dx, dy in dxy:
-
         nx, ny = r + dx, c + dy
-        if nx < 0 or nx >= n or ny < 0 or ny >= n: continue
-        if grid[nx][ny] > num:
-            num = grid[nx][ny]
+        if 0 <= nx < n and 0 <= ny < n:
+            if grid[nx][ny] > max_val:
+                max_val = grid[nx][ny]
+                next_pos = (nx, ny)
 
-    for i in range(n):
-        for j in range(n):
-            if grid[i][j] == num:
-                lst.append((i, j))
-
-
-
+    r, c = next_pos
     cnt += 1
+
+print(r + 1, c + 1)
