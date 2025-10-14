@@ -5,10 +5,7 @@ T = int(input())
 for t in range(T):
     V, E = map(int, input().split())
     p = [i for i in range(V + 1)]
-    edges = []
-    for _ in range(E):
-        n1, n2, w = map(int, input().split())
-        edges.append((n1, n2, w))
+    edges = [list(map(int, input().split())) for _ in range(E)]
     edges.sort(key=lambda x: x[2])
 
 
