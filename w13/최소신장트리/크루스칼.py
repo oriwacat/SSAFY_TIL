@@ -15,7 +15,6 @@ def union(x, y):
         return True
     return False
 
-# Kruskal Algorithm -------------------------------
 T = int(input())
 
 for t in range(1, T + 1):
@@ -25,7 +24,7 @@ for t in range(1, T + 1):
     # 간선을 가중치 기준으로 오름차순 정렬
     edges.sort(key=lambda x: x[2])
 
-    parent = [i for i in range(n + 1)]
+    parent = list(range(n+1))
     total_weight = 0
     edge_count = 0
 
