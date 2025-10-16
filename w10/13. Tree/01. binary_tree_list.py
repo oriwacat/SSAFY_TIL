@@ -48,11 +48,11 @@ class BinaryTree:
     def __str__(self):
         return str(self.tree[1:])
 
-# 이진 트리 생성
+# 이진 subtree 생성
 bt = BinaryTree()
 bt.insert('M')
 
-# 이진 트리 출력 
+# 이진 subtree 출력
 print("Binary Tree:", bt)
 # 루트 노드 반환
 print('루트노드:', bt.get_node(0))

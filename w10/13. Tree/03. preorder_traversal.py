@@ -10,7 +10,7 @@ def preorder_traversal(root):
         preorder_traversal(root.left)  # 왼쪽 서브트리 방문
         preorder_traversal(root.right)  # 오른쪽 서브트리 방문
 
-# 트리 생성
+# subtree 생성
 root = TreeNode(1)
 root.left = TreeNode(2)
 root.right = TreeNode(3)
