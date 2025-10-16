@@ -17,7 +17,6 @@ def kal(visited):
         visited[x] = True
         visited[y] = True
 
-
 def kal2(box,visited):
     global l_lst, energy
 
