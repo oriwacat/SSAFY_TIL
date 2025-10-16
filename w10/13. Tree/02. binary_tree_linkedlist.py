@@ -51,7 +51,7 @@ class BinaryTree:
     def __str__(self):
         return str(self.inorder_traversal())
 
-# 이진 트리 생성 및 값 삽입
+# 이진 subtree 생성 및 값 삽입
 bt = BinaryTree()
 bt.insert('A')
 bt.insert('B')
@@ -66,7 +66,7 @@ bt.insert('J')
 bt.insert('K')
 bt.insert('L')
 
-# 이진 트리 출력
+# 이진 subtree 출력
 print("Binary Tree (Inorder Traversal):", bt)
 
 # 노드 검색

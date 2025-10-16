@@ -10,7 +10,7 @@ def inorder_traversal(root):
         print(root.val)  # 현재 노드 방문
         inorder_traversal(root.right)  # 오른쪽 서브트리 방문
 
-# 트리 생성
+# subtree 생성
 root = TreeNode(1)
 root.left = TreeNode(2)
 root.right = TreeNode(3)

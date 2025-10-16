@@ -1,5 +1,6 @@
 import sys
 sys.stdin = open('algo1_sample_in.txt')
+<<<<<<< HEAD
 from collections import deque
 
 def kal(visited):
@@ -29,20 +30,38 @@ def kal2(box,visited):
 
 
 
+=======
+import heapq
+>>>>>>> 41fa8a02e54979a01a2800d2a5809697e2832283
 
 T = int(input())
 
 for t in range(1, T+1):
     n,m = map(int,input().split())
-    box = [list(map(int,input().split())) for _ in range(m)]
-    energy = 0
-    l_lst = 0
-    visited = [False] * (n+1)
-    box.sort(key = lambda x: x[2])
-    # kal(visited)
-    kal2(box,visited)
+    lst = {i : {} for i in range(1, n+1)}
+    for _ in range(m):
+        x,y,e = map(int,input().split())
+        lst[x][y] = e
+        lst[y][x] = e
 
-    if l_lst != n-1:
-        print(f'#{t} {-1}')
+    energy = 0
+    visited = set()
+    min_heap = []
+    heapq.heappush(min_heap, [0,1])
+
+    while min_heap:
+        val, pos = heapq.heappop(min_heap)
+
+        if pos in visited: continue
+
+        visited.add(pos)
+        energy += val
+
+        for next_pos, eng in lst[pos].items():
+            if next_pos in visited: continue
+            heapq.heappush(min_heap, [eng, next_pos])
+
+    if len(visited) == n:
+        print(energy)
     else:
-        print(f'#{t} {energy}')
+        print(-1)
