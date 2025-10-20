@@ -1,6 +1,38 @@
 import sys
 sys.stdin = open('algo1_sample_in.txt')
+<<<<<<< HEAD
+from collections import deque
+
+def kal(visited):
+    global l_lst,energy
+    queue = deque()
+    for i in box:
+        queue.append(i)
+
+    while queue:
+        x,y,e = queue.popleft()
+
+        if visited[x] and visited[y]: continue
+        l_lst += 1
+        energy += e
+        visited[x] = True
+        visited[y] = True
+
+def kal2(box,visited):
+    global l_lst, energy
+
+    for x,y,e in box:
+        if visited[x] and visited[y]: continue
+        l_lst += 1
+        energy += e
+        visited[x] = True
+        visited[y] = True
+
+
+
+=======
 import heapq
+>>>>>>> 41fa8a02e54979a01a2800d2a5809697e2832283
 
 T = int(input())
 
