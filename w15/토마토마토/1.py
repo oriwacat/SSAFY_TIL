@@ -1,40 +1,35 @@
-import sys
-sys.stdin = open('input.txt')
-dxy = [[0,1],[0,-1],[1,0],[-1,0]]
-T = int(input())
-for t in range(T):
-    m,n,h = map(int,input().split())
+from collections import deque
 
-    arr = [list(map(int,input().split())) for _ in range(n*h)]
-    cnt = 0
-    # if 0 not in arr:
-    #     print(cnt)
-    #     continue
+dxyz = [(1,0,0), (-1,0,0), (0,1,0), (0,-1,0), (0,0,1), (0,0,-1)]  # 위, 아래, 상, 하, 앞, 뒤
 
-    while True:
-        box = []
-        for r in range(h):
-            for i in range(m):
-                for j in range(n):
-                    if arr[i][j+(r*n)] == 1:
-                        for x,y in dxy: #상하좌우 전파
-                            nx,ny = i + x, j+(r*n) + y
-                            if 0 > nx or nx >= m or 0 > ny or ny >= n + (n*r): continue
-                            if not arr[nx][ny]:
-                                box.append([nx,ny])
-                        if j+(n*r) < n*h: # 윗상자 전파
-                            if not arr[i][j+(n*r)]:
-                                box.append([i,j+(n*r)])
-                        if j-(n*r) >= 0: #아랫상자 전파
-                            if not arr[i][j-(n*r)]:
-                                box.append([i,j-(n*r)])
-        if box:
-            cnt += 1
-            for xx,xy in box:
-                arr[xx][xy] = 1
-            box = []
-        else:
-            break
+m, n, h = map(int, input().split())
+arr = [[list(map(int, input().split())) for _ in range(n)] for _ in range(h)]
+q = deque()
 
+# 초기 익은 토마토 좌표를 큐에 저장
+for z in range(h):
+    for x in range(n):
+        for y in range(m):
+            if arr[z][x][y] == 1:
+                q.append((z, x, y))
 
-    print(cnt)
+# BFS
+while q:
+    z, x, y = q.popleft()
+    for dz, dx, dy in dxyz:
+        nz, nx, ny = z + dz, x + dx, y + dy
+        if 0 <= nz < h and 0 <= nx < n and 0 <= ny < m and arr[nz][nx][ny] == 0:
+            arr[nz][nx][ny] = arr[z][x][y] + 1  # 하루 증가
+            q.append((nz, nx, ny))
+
+# 결과 계산
+days = 0
+for z in range(h):
+    for x in range(n):
+        for y in range(m):
+            if arr[z][x][y] == 0:  # 안 익은 토마토가 있으면
+                print(-1)
+                exit(0)
+            days = max(days, arr[z][x][y])
+
+print(days - 1)
