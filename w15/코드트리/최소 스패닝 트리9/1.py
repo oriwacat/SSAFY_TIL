@@ -1,7 +1,3 @@
-n, m = map(int, input().split())
-edges = [tuple(map(int, input().split())) for _ in range(m)]
-
-
 def find(x):
     if parent[x] != x:
         parent[x] = find(parent[x])
@@ -22,18 +18,21 @@ def union(a,b):
         rank[a] += 1
     return True
 
+
+
+n, m = map(int, input().split())
+edges = [tuple(map(int, input().split())) for _ in range(m)]
 rank = [0] * (n+1)
 parent = [i for i in range(n+1)]
-cnt = 0
 cost = 0
+cnt = 0
 
 edges.sort(key=lambda edge: edge[2])
 
-for a,b,v in edges:
-    if union(a,b):
+for x,y,v in edges:
+    if union(x,y):
         cost += v
         cnt += 1
         if cnt == (n-1):
             break
-
 print(cost)
