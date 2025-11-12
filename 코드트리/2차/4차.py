@@ -140,3 +140,45 @@ while True:
         break
 
 print_result(numbers)
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+
+n, m = map(int, input().split())
+grid = [list(map(int, input().split())) for _ in range(n)]
+commands = [int(input()) - 1 for _ in range(m)]  # 입력이 1-based라면 -1 처리
+dxy = [(1,0),(0,1),(-1,0),(0,-1)]
+
+for c in commands:             # 각 명령(열)마다
+    # 해당 열에서 위에서부터 내려오며 첫 폭탄을 터뜨림
+    for j in range(n):
+        if grid[j][c] > 0:
+            power = grid[j][c]
+            grid[j][c] = 0     # 자기 자신은 무조건 터짐
+
+            if power > 1:
+                for dx, dy in dxy:
+                    for p in range(1, power):   # 거리 1 ~ power-1
+                        nx, ny = j + dx*p, c + dy*p
+                        if 0 <= nx < n and 0 <= ny < n:
+                            grid[nx][ny] = 0
+            break  # 한 열에서 첫 번째 폭탄만 터뜨리고 다음 명령으로
+
+    # --- 여기에 '중력' 적용: 각 열의 숫자들이 아래로 내려가게 함 ---
+    for col in range(n):
+        stack = []
+        # 위에서 아래로 비제로 값을 수집
+        for row in range(n):
+            if grid[row][col] != 0:
+                stack.append(grid[row][col])
+            grid[row][col] = 0  # 일단 칸을 비운다
+
+        # 바닥(n-1)부터 채우기 (원래 순서 유지)
+        r = n - 1
+        while stack:
+            grid[r][col] = stack.pop()  # 마지막 원소가 바닥으로
+            r -= 1
+
+# 결과 출력
+for row in grid:
+    print(*row)
